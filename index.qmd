@@ -1,0 +1,69 @@
+title: "ASOS 기상자료를 활용한 증발량 산출 모형 분석" subtitle: "Python을 활용한 분석 교육 실습" author: "기상청" date: today format: html: theme: cosmo toc: true toc-depth: 3 code-fold: false code-tools: true html-math-method: katex css: styles.css execute: echo: true warning: false message: false
+분석 개요
+기상청은 서울기상관측소를 비롯하여 전국 102개소의 종관기상관측장비(ASOS)와 무인으로 운영되는 510개소의 자동기상관측장비(AWS)를 이용하여 지상기상관측업무를 수행하고 있습니다.
+
+본 실습에서는 ASOS(종관기상관측장비) 기상데이터와 비기상데이터를 활용하여 소형증발량을 산출하는 모형을 구축하는 것을 목표로 합니다.
+
+분석 시나리오
+증발량 영향변수 선택: 변수 중요도가 높은 변수를 기준으로 순서대로 상관계수가 0.45 이상인 변수를 제거하여 후보변수를 도출
+증발량 산출모형 구축: 랜덤포레스트(Random Forest) 기법을 활용하여 일별 증발량을 산출하는 산출식 도출
+Ⅰ. 데이터로딩
+1. 분석환경설정 및 패키지로딩
+분석을 위해 필요한 패키지들을 로딩하고 환경을 설정합니다.
+
+{{< embed https://raw.githubusercontent.com/leejoohyun/asos-evaporation-analysis/main/notebooks/01_data_loading.ipynb#1-분석환경설정-및-패키지로딩 >}}
+
+2. 데이터 불러오기
+종관기상관측장비(ASOS) 관측 자료 데이터와 각 ASOS 관측 지점별 이력 정보 데이터를 불러옵니다.
+
+{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/01_data_loading.ipynb#2-데이터-불러오기 >}}
+
+3. 데이터 추출 및 결합하기
+지점정보이력에서 필요한 컬럼만 추출하고 데이터를 결합합니다.
+
+{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/01_data_loading.ipynb#3-데이터-추출-및-결합하기 >}}
+
+Ⅱ. 데이터탐색
+1. 요약통계보기
+데이터의 기본적인 통계량을 확인합니다.
+
+{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/02_data_exploration.ipynb#1-요약통계보기 >}}
+
+2. 박스플롯 그리기
+지점별 박스플롯을 그려 분포를 확인합니다.
+
+{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/02_data_exploration.ipynb#2-박스플롯-그리기 >}}
+
+3. 히스토그램 그리기
+변수별 히스토그램을 그려 분포를 확인합니다.
+
+{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/02_data_exploration.ipynb#3-히스토그램-그리기 >}}
+
+Ⅲ. 데이터처리
+1. 이상치처리
+기후자료 품질검사 알고리즘 기준값을 기준으로 이상치를 처리합니다.
+
+2. 결측치처리
+결측치를 적절한 방법으로 처리합니다.
+
+3. 파생변수생성
+분석에 필요한 파생변수를 생성합니다.
+
+Ⅳ. 모형구축
+1. 변수선택
+다중공선성을 고려하여 최적의 변수를 선택합니다.
+
+2. 모형구축
+랜덤포레스트 기법을 활용하여 증발량 산출 모형을 구축합니다.
+
+Ⅴ. 모형검증
+1. 모형성능검증
+구축된 모형의 성능을 검증합니다.
+
+2. 교차검증
+지점별 교차검증을 수행하여 모형의 일반화 성능을 평가합니다.
+
+참고자료
+기상청 날씨마루
+Quarto 문서
+Python 머신러닝 완벽 가이드
