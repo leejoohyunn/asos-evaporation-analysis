@@ -1,0 +1,51 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "ASOS 증발량 분석"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+    right:
+      - icon: github
+        href: https://github.com/leejoohyunn/asos-evaporation-analysis
+  sidebar:
+    style: "floating"
+    collapse-level: 2
+    contents:
+      - index.qmd
+      - section: "Ⅰ. 데이터로딩"
+        contents:
+          - text: "1. 분석환경설정 및 패키지로딩"
+          - text: "2. 데이터 불러오기"
+          - text: "3. 데이터 추출 및 결합하기"
+      - section: "Ⅱ. 데이터탐색"
+        contents:
+          - text: "1. 요약통계보기"
+          - text: "2. 박스플롯 그리기"
+          - text: "3. 히스토그램 그리기"
+      - section: "Ⅲ. 데이터처리"
+        contents:
+          - text: "1. 이상치처리"
+          - text: "2. 결측치처리"
+          - text: "3. 파생변수생성"
+      - section: "Ⅳ. 모형구축"
+        contents:
+          - text: "1. 변수선택"
+          - text: "2. 모형구축"
+      - section: "Ⅴ. 모형검증"
+        contents:
+          - text: "1. 모형성능검증"
+          - text: "2. 교차검증"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: left
+    
+execute:
+  freeze: auto
