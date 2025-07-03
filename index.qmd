@@ -11,33 +11,33 @@ title: "ASOS 기상자료를 활용한 증발량 산출 모형 분석" subtitle:
 1. 분석환경설정 및 패키지로딩
 분석을 위해 필요한 패키지들을 로딩하고 환경을 설정합니다.
 
-{{< embed https://raw.githubusercontent.com/leejoohyun/asos-evaporation-analysis/main/notebooks/01_data_loading.ipynb#1-분석환경설정-및-패키지로딩 >}}
+{{< embed notebooks/01_data_loading.ipynb#1-분석환경설정-및-패키지로딩 >}}
 
 2. 데이터 불러오기
 종관기상관측장비(ASOS) 관측 자료 데이터와 각 ASOS 관측 지점별 이력 정보 데이터를 불러옵니다.
 
-{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/01_data_loading.ipynb#2-데이터-불러오기 >}}
+{{< embed notebooks/01_data_loading.ipynb#2-데이터-불러오기 >}}
 
 3. 데이터 추출 및 결합하기
 지점정보이력에서 필요한 컬럼만 추출하고 데이터를 결합합니다.
 
-{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/01_data_loading.ipynb#3-데이터-추출-및-결합하기 >}}
+{{< embed notebooks/01_data_loading.ipynb#3-데이터-추출-및-결합하기 >}}
 
 Ⅱ. 데이터탐색
 1. 요약통계보기
 데이터의 기본적인 통계량을 확인합니다.
 
-{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/02_data_exploration.ipynb#1-요약통계보기 >}}
+{{< embed notebooks/02_data_exploration.ipynb#1-요약통계보기 >}}
 
 2. 박스플롯 그리기
 지점별 박스플롯을 그려 분포를 확인합니다.
 
-{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/02_data_exploration.ipynb#2-박스플롯-그리기 >}}
+{{< embed notebooks/02_data_exploration.ipynb#2-박스플롯-그리기 >}}
 
 3. 히스토그램 그리기
 변수별 히스토그램을 그려 분포를 확인합니다.
 
-{{< embed https://raw.githubusercontent.com/leejoohyunn/asos-evaporation-analysis/main/notebooks/02_data_exploration.ipynb#3-히스토그램-그리기 >}}
+{{< embed notebooks/02_data_exploration.ipynb#3-히스토그램-그리기 >}}
 
 Ⅲ. 데이터처리
 1. 이상치처리
