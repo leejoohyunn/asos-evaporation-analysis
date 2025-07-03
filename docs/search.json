@@ -1,0 +1,83 @@
+[
+  {
+    "objectID": "notebooks/05_model_validation.html",
+    "href": "notebooks/05_model_validation.html",
+    "title": "1. 모형성능검증",
+    "section": "",
+    "text": "구축된 모형의 성능을 검증합니다.\n\n# 모형성능검증 코드가 여기에 들어갑니다\nprint(\"모형성능검증 완료\")\n\n\n2. 교차검증\n지점별 교차검증을 수행하여 모형의 일반화 성능을 평가합니다.\n\n# 교차검증 코드가 여기에 들어갑니다\nprint(\"교차검증 완료\")"
+  },
+  {
+    "objectID": "notebooks/03_data_processing.html",
+    "href": "notebooks/03_data_processing.html",
+    "title": "1. 이상치처리",
+    "section": "",
+    "text": "기후자료 품질검사 알고리즘 기준값을 기준으로 이상치를 처리합니다.\n\n# 이상치 처리 코드가 여기에 들어갑니다\nprint(\"이상치 처리 완료\")\n\n\n2. 결측치처리\n결측치를 적절한 방법으로 처리합니다.\n\n# 결측치 처리 코드가 여기에 들어갑니다\nprint(\"결측치 처리 완료\")\n\n\n\n3. 파생변수생성\n분석에 필요한 파생변수를 생성합니다.\n\n# 파생변수 생성 코드가 여기에 들어갑니다\nprint(\"파생변수 생성 완료\")"
+  },
+  {
+    "objectID": "notebooks/01_data_loading.html",
+    "href": "notebooks/01_data_loading.html",
+    "title": "1. Setup and Package Loading",
+    "section": "",
+    "text": "분석을 위해 필요한 패키지들을 로딩합니다.\n\nimport os\nimport sys\nimport glob\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport statsmodels.api as sm\nimport numpy as np\nimport re\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import classification_report, confusion_matrix\nfrom sklearn.ensemble import GradientBoostingClassifier, RandomForestRegressor\nfrom missingpy import KNNImputer\n\n# 한글 폰트 설정\nplt.rcParams['font.family'] = 'DejaVu Sans'\nplt.rcParams['axes.unicode_minus'] = False\n\nprint(\"패키지 로딩 완료\")\n\n\n# Python 메모리에 생성된 모든 객체 삭제 (초기화)\nsys.stdout.flush()\n\n# 현재 위치한 디렉토리 경로 확인\ncurrentPath = os.getcwd()\nprint('Current working dir : %s' % currentPath)\n\n\n2. Data Loading\n종관기상관측장비(ASOS) 관측 자료 데이터와 각 ASOS 관측 지점별 이력 정보 데이터를 불러옵니다.\n\n# 데이터 로딩 (실제 데이터 대신 샘플 데이터 구조만 보여줌)\n# ASOS_DATA = pd.read_csv('ASOS_DATA.csv', encoding='euc-kr')\n# GEO_DATA = pd.read_csv('GEO_DATA.csv', encoding='euc-kr')\n\n# 샘플 데이터 구조 생성 (실제 분석에서는 위의 주석 해제)\nprint(\"데이터 로딩 완료 (샘플 데이터 구조)\")\nprint(\"ASOS_DATA: 종관기상관측장비 관측 자료\")\nprint(\"GEO_DATA: 관측 지점별 이력 정보\")\n\n\n\n3. Data Extraction and Merging\n지점정보이력에서 필요한 컬럼만 추출하고 데이터를 결합합니다.\n\n# 필요한 컬럼만 추출\n# GEO_DATA = GEO_DATA.loc[:, ['STN_ID', 'TM_ED', 'TM_ST', 'HT', 'HT_WD']]\nprint(\"필요한 컬럼 추출 완료\")\n\n\n# 데이터 타입 변환\n# GEO_DATA['TM_ST'] = GEO_DATA['TM_ST'].str.replace('.', '')\n# GEO_DATA['TM_ED'] = GEO_DATA['TM_ED'].str.replace('.', '')\n# GEO_DATA['TM_ST'] = GEO_DATA['TM_ST'].str.slice(0, 8)\n# GEO_DATA['TM_ED'] = GEO_DATA['TM_ED'].str.slice(0, 8)\n# GEO_DATA['TM_ST'] = GEO_DATA['TM_ST'].astype(int)\n# GEO_DATA['TM_ED'] = GEO_DATA['TM_ED'].astype(int)\n\nprint(\"데이터 타입 변환 완료\")\n\n\n# 기상데이터와 HT(관측지점높이) 결합\n# mergeGeo = GEO_DATA.loc[GEO_DATA['STN_ID'] != 146, ['STN_ID','HT']]\n# DATA = pd.merge(ASOS_DATA, mergeGeo, how='left', on='STN_ID')\n\n# 146(전주)지점 관측기간에 맞는 HT 데이터 결합하기\n# DATA.at[(DATA['STN_ID'] == 146) & (DATA['TM'] &lt; 20150701), 'HT'] = 53.40\n# DATA.at[(DATA['STN_ID'] == 146) & (DATA['TM'] &gt;= 20150701), 'HT'] = 61.40\n\nprint(\"데이터 결합 완료\")"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ASOS 기상자료를 활용한 증발량 산출 모형 분석",
+    "section": "",
+    "text": "분석 개요 기상청은 서울기상관측소를 비롯하여 전국 102개소의 종관기상관측장비(ASOS)와 무인으로 운영되는 510개소의 자동기상관측장비(AWS)를 이용하여 지상기상관측업무를 수행하고 있습니다.\n본 실습에서는 ASOS(종관기상관측장비) 기상데이터와 비기상데이터를 활용하여 소형증발량을 산출하는 모형을 구축하는 것을 목표로 합니다.\n분석 시나리오 증발량 영향변수 선택: 변수 중요도가 높은 변수를 기준으로 순서대로 상관계수가 0.45 이상인 변수를 제거하여 후보변수를 도출 증발량 산출모형 구축: 랜덤포레스트(Random Forest) 기법을 활용하여 일별 증발량을 산출하는 산출식 도출 Ⅰ. 데이터로딩 분석을 위해 필요한 패키지들을 로딩하고 데이터를 불러와서 결합합니다.\n\n\n1. Setup and Package Loading\n분석을 위해 필요한 패키지들을 로딩합니다.\n\n\n2. Data Loading\n종관기상관측장비(ASOS) 관측 자료 데이터와 각 ASOS 관측 지점별 이력 정보 데이터를 불러옵니다.\n\n\n3. Data Extraction and Merging\n지점정보이력에서 필요한 컬럼만 추출하고 데이터를 결합합니다.\n\nSource: 1. Setup and Package Loading\nⅡ. 데이터탐색 데이터의 기본적인 통계량을 확인하고 분포를 살펴봅니다.\n\n\n1. 요약통계보기\n데이터의 기본적인 통계량을 확인합니다.\n\n\n2. 박스플롯 그리기\n지점별 박스플롯을 그려 분포를 확인합니다.\n\n\n3. 히스토그램 그리기\n변수별 히스토그램을 그려 분포를 확인합니다.\n\nSource: 1. 요약통계보기\nⅢ. 데이터처리 이상치와 결측치를 처리하고 파생변수를 생성합니다.\n\n\n1. 이상치처리\n기후자료 품질검사 알고리즘 기준값을 기준으로 이상치를 처리합니다.\n\n\n2. 결측치처리\n결측치를 적절한 방법으로 처리합니다.\n\n\n3. 파생변수생성\n분석에 필요한 파생변수를 생성합니다.\n\nSource: 1. 이상치처리\nⅣ. 모형구축 변수를 선택하고 랜덤포레스트 모형을 구축합니다.\n\n\n1. 변수선택\n다중공선성을 고려하여 최적의 변수를 선택합니다.\n\n\n2. 모형구축\n랜덤포레스트 기법을 활용하여 증발량 산출 모형을 구축합니다.\n\nSource: 1. 변수선택\nⅤ. 모형검증 구축된 모형의 성능을 검증합니다.\n\n\n1. 모형성능검증\n구축된 모형의 성능을 검증합니다.\n\n\n2. 교차검증\n지점별 교차검증을 수행하여 모형의 일반화 성능을 평가합니다.\n\nSource: 1. 모형성능검증\n참고자료 기상청 날씨마루 Quarto 문서 Python 머신러닝 완벽 가이드",
+    "crumbs": [
+      "Home",
+      "ASOS 기상자료를 활용한 증발량 산출 모형 분석"
+    ]
+  },
+  {
+    "objectID": "notebooks/02_data_exploration.html",
+    "href": "notebooks/02_data_exploration.html",
+    "title": "1. 요약통계보기",
+    "section": "",
+    "text": "데이터의 기본적인 통계량을 확인합니다.\n\n# 요약통계 코드가 여기에 들어갑니다\n\n\n2. 박스플롯 그리기\n지점별 박스플롯을 그려 분포를 확인합니다.\n\n# 박스플롯 코드가 여기에 들어갑니다\n\n\n\n3. 히스토그램 그리기\n변수별 히스토그램을 그려 분포를 확인합니다.\n\n# 히스토그램 코드가 여기에 들어갑니다"
+  },
+  {
+    "objectID": "notebooks/04_model_building.html",
+    "href": "notebooks/04_model_building.html",
+    "title": "1. 변수선택",
+    "section": "",
+    "text": "다중공선성을 고려하여 최적의 변수를 선택합니다.\n\n# 변수선택 코드가 여기에 들어갑니다\nprint(\"변수선택 완료\")\n\n\n2. 모형구축\n랜덤포레스트 기법을 활용하여 증발량 산출 모형을 구축합니다.\n\n# 모형구축 코드가 여기에 들어갑니다\nprint(\"모형구축 완료\")"
+  },
+  {
+    "objectID": "docs/notebooks/05_model_validation.out.html",
+    "href": "docs/notebooks/05_model_validation.out.html",
+    "title": "1. 모형성능검증",
+    "section": "",
+    "text": "구축된 모형의 성능을 검증합니다.\n\n# 모형성능검증 코드가 여기에 들어갑니다\nprint(\"모형성능검증 완료\")\n\n\n2. 교차검증\n지점별 교차검증을 수행하여 모형의 일반화 성능을 평가합니다.\n\n# 교차검증 코드가 여기에 들어갑니다\nprint(\"교차검증 완료\")"
+  },
+  {
+    "objectID": "docs/notebooks/03_data_processing.out.html",
+    "href": "docs/notebooks/03_data_processing.out.html",
+    "title": "1. 이상치처리",
+    "section": "",
+    "text": "기후자료 품질검사 알고리즘 기준값을 기준으로 이상치를 처리합니다.\n\n# 이상치 처리 코드가 여기에 들어갑니다\nprint(\"이상치 처리 완료\")\n\n\n2. 결측치처리\n결측치를 적절한 방법으로 처리합니다.\n\n# 결측치 처리 코드가 여기에 들어갑니다\nprint(\"결측치 처리 완료\")\n\n\n\n3. 파생변수생성\n분석에 필요한 파생변수를 생성합니다.\n\n# 파생변수 생성 코드가 여기에 들어갑니다\nprint(\"파생변수 생성 완료\")"
+  },
+  {
+    "objectID": "docs/notebooks/01_data_loading.out.html",
+    "href": "docs/notebooks/01_data_loading.out.html",
+    "title": "1. Setup and Package Loading",
+    "section": "",
+    "text": "분석을 위해 필요한 패키지들을 로딩합니다.\n\nimport os\nimport sys\nimport glob\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nimport statsmodels.api as sm\nimport numpy as np\nimport re\nfrom sklearn.preprocessing import MinMaxScaler\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import classification_report, confusion_matrix\nfrom sklearn.ensemble import GradientBoostingClassifier, RandomForestRegressor\nfrom missingpy import KNNImputer\n\n# 한글 폰트 설정\nplt.rcParams['font.family'] = 'DejaVu Sans'\nplt.rcParams['axes.unicode_minus'] = False\n\nprint(\"패키지 로딩 완료\")\n\n\n# Python 메모리에 생성된 모든 객체 삭제 (초기화)\nsys.stdout.flush()\n\n# 현재 위치한 디렉토리 경로 확인\ncurrentPath = os.getcwd()\nprint('Current working dir : %s' % currentPath)\n\n\n2. Data Loading\n종관기상관측장비(ASOS) 관측 자료 데이터와 각 ASOS 관측 지점별 이력 정보 데이터를 불러옵니다.\n\n# 데이터 로딩 (실제 데이터 대신 샘플 데이터 구조만 보여줌)\n# ASOS_DATA = pd.read_csv('ASOS_DATA.csv', encoding='euc-kr')\n# GEO_DATA = pd.read_csv('GEO_DATA.csv', encoding='euc-kr')\n\n# 샘플 데이터 구조 생성 (실제 분석에서는 위의 주석 해제)\nprint(\"데이터 로딩 완료 (샘플 데이터 구조)\")\nprint(\"ASOS_DATA: 종관기상관측장비 관측 자료\")\nprint(\"GEO_DATA: 관측 지점별 이력 정보\")\n\n\n\n3. Data Extraction and Merging\n지점정보이력에서 필요한 컬럼만 추출하고 데이터를 결합합니다.\n\n# 필요한 컬럼만 추출\n# GEO_DATA = GEO_DATA.loc[:, ['STN_ID', 'TM_ED', 'TM_ST', 'HT', 'HT_WD']]\nprint(\"필요한 컬럼 추출 완료\")\n\n\n# 데이터 타입 변환\n# GEO_DATA['TM_ST'] = GEO_DATA['TM_ST'].str.replace('.', '')\n# GEO_DATA['TM_ED'] = GEO_DATA['TM_ED'].str.replace('.', '')\n# GEO_DATA['TM_ST'] = GEO_DATA['TM_ST'].str.slice(0, 8)\n# GEO_DATA['TM_ED'] = GEO_DATA['TM_ED'].str.slice(0, 8)\n# GEO_DATA['TM_ST'] = GEO_DATA['TM_ST'].astype(int)\n# GEO_DATA['TM_ED'] = GEO_DATA['TM_ED'].astype(int)\n\nprint(\"데이터 타입 변환 완료\")\n\n\n# 기상데이터와 HT(관측지점높이) 결합\n# mergeGeo = GEO_DATA.loc[GEO_DATA['STN_ID'] != 146, ['STN_ID','HT']]\n# DATA = pd.merge(ASOS_DATA, mergeGeo, how='left', on='STN_ID')\n\n# 146(전주)지점 관측기간에 맞는 HT 데이터 결합하기\n# DATA.at[(DATA['STN_ID'] == 146) & (DATA['TM'] &lt; 20150701), 'HT'] = 53.40\n# DATA.at[(DATA['STN_ID'] == 146) & (DATA['TM'] &gt;= 20150701), 'HT'] = 61.40\n\nprint(\"데이터 결합 완료\")"
+  },
+  {
+    "objectID": "docs/notebooks/02_data_exploration.out.html",
+    "href": "docs/notebooks/02_data_exploration.out.html",
+    "title": "1. 요약통계보기",
+    "section": "",
+    "text": "데이터의 기본적인 통계량을 확인합니다.\n\n# 요약통계 코드가 여기에 들어갑니다\n\n\n2. 박스플롯 그리기\n지점별 박스플롯을 그려 분포를 확인합니다.\n\n# 박스플롯 코드가 여기에 들어갑니다\n\n\n\n3. 히스토그램 그리기\n변수별 히스토그램을 그려 분포를 확인합니다.\n\n# 히스토그램 코드가 여기에 들어갑니다"
+  },
+  {
+    "objectID": "docs/notebooks/04_model_building.out.html",
+    "href": "docs/notebooks/04_model_building.out.html",
+    "title": "1. 변수선택",
+    "section": "",
+    "text": "다중공선성을 고려하여 최적의 변수를 선택합니다.\n\n# 변수선택 코드가 여기에 들어갑니다\nprint(\"변수선택 완료\")\n\n\n2. 모형구축\n랜덤포레스트 기법을 활용하여 증발량 산출 모형을 구축합니다.\n\n# 모형구축 코드가 여기에 들어갑니다\nprint(\"모형구축 완료\")"
+  }
+]
